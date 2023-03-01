@@ -1,0 +1,13 @@
+KID=$(osm k8scluster-list | grep -o "[a-f0-9]\{8\}-[a-f0-9]\{4\}-[a-f0-9]\{4\}-[a-f0-9]\{4\}-[a-f0-9]\{12\}")
+export OSMNS=$(osm k8scluster-show --literal $KID | grep -A1 projects | grep -o "[a-f0-9]\{8\}-[a-f0-9]\{4\}-[a-f0-9]\{4\}-[a-f0-9]\{4\}-[a-f0-9]\{12\}" | head -n 1)
+
+ACCPOD1=$(osm ns-list | grep renes1 | awk '{split($0, a, "|");print a[3]}' | xargs osm vnf-list --ns | grep access | awk '{split($0,a,"|");print a[2]}' | xargs osm vnf-show --literal | grep name | grep access | awk '{split($0,a,":");print a[2]}' | sed 's/ //g')
+CPEPOD1=$(osm ns-list | grep renes1 | awk '{split($0, a, "|");print a[3]}' | xargs osm vnf-list --ns | grep cpe | awk '{split($0,a,"|");print a[2]}' | xargs osm vnf-show --literal | grep name | grep cpe | awk '{split($0,a,":");print a[2]}' | sed 's/ //g')
+ARPPOD1=$(osm ns-list | grep renes1 | awk '{split($0, a, "|");print a[3]}' | xargs osm vnf-list --ns | grep arpwatch | awk '{split($0,a,"|");print a[2]}' | xargs osm vnf-show --literal | grep name | grep arpwatch | awk '{split($0,a,":");print a[2]}' | sed 's/ //g')
+
+ACCPOD2=$(osm ns-list | grep renes2 | awk '{split($0, a, "|");print a[3]}' | xargs osm vnf-list --ns | grep access | awk '{split($0,a,"|");print a[2]}' | xargs osm vnf-show --literal | grep name | grep access | awk '{split($0,a,":");print a[2]}' | sed 's/ //g')
+CPEPOD2=$(osm ns-list | grep renes2 | awk '{split($0, a, "|");print a[3]}' | xargs osm vnf-list --ns | grep cpe | awk '{split($0,a,"|");print a[2]}' | xargs osm vnf-show --literal | grep name | grep cpe | awk '{split($0,a,":");print a[2]}' | sed 's/ //g')
+ARPPOD2=$(osm ns-list | grep renes2 | awk '{split($0, a, "|");print a[3]}' | xargs osm vnf-list --ns | grep arpwatch | awk '{split($0,a,"|");print a[2]}' | xargs osm vnf-show --literal | grep name | grep arpwatch | awk '{split($0,a,":");print a[2]}' | sed 's/ //g')
+
+kubectl -n $OSMNS exec -it deploy/$CPEPOD1 -- bin/bash
+kubectl -n $OSMNS exec -it deploy/$CPEPOD2 -- bin/bash
