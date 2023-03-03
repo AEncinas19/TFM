@@ -8,7 +8,7 @@ export OSMNS=$(osm k8scluster-show --literal $KID | grep -A1 projects | grep -o 
 
 echo "export OSMNS='$OSMNS'" >> ~/.bashrc
 
-cd shared/rdsv-final
+cd TFM/OSM
 osm repo-add  --type helm-chart --description "Repo para la practica final de RDSV" helmchartrepo https://aencinas19.github.io/repo-rdsv
 osm vnfd-create pck/accessknf_vnfd.tar.gz
 osm vnfd-create pck/cpeknf_vnfd.tar.gz
