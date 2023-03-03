@@ -27,3 +27,7 @@ COPY vnx_config_nat /usr/bin/
 COPY isc-dhcp-server /etc/default/isc-dhcp-server
 COPY dhcpd.conf /etc/dhcp/dhcpd.conf 
 COPY qos_simple_switch_13.py /
+COPY node_exporter-1.5.0.linux-amd64.tar.gz /
+RUN tar xvfz node_exporter-1.5.0.linux-amd64.tar.gz
+RUN cd node_exporter-1.5.0.linux-amd64
+CMD ./node_exporter
