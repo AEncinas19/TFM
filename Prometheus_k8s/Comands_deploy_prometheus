@@ -1,0 +1,5 @@
+kubectl create ns monitoring
+kubectl create -f clusterRole.yaml
+kubectl create -f config-map.yaml
+kubectl create  -n monitoring -f prometheus-deployment.yaml 
+kubectl create -n monitoring -f prometheus-service.yaml
