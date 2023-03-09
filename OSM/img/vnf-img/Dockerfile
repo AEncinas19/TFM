@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 # install required packages
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
+EXPOSE 9100
 RUN apt-get clean
 RUN apt-get update \
     && apt-get install -y \
@@ -30,4 +31,4 @@ COPY qos_simple_switch_13.py /
 COPY node_exporter-1.5.0.linux-amd64.tar.gz /
 RUN tar xvfz node_exporter-1.5.0.linux-amd64.tar.gz
 RUN cd node_exporter-1.5.0.linux-amd64
-CMD ./node_exporter
+CMD ./node_exporter &
