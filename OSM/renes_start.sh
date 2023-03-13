@@ -85,6 +85,8 @@ $CPE_EXEC ifconfig net1 $VCPEPUBIP/24
 $CPE_EXEC ip route add $IPACCESS/32 via $K8SGW
 $CPE_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
+## Para poder monitorizar con Prometheus es necesario habilitar esta ruta para que pueda acceder al CPE
+$CPE_EXEC ip route add 10.1.77.0/24 via $K8SGW
 
 ## 5. En VNF:cpe iniciar Servidor DHCP
 echo "## 5. En VNF:cpe iniciar Servidor DHCP"
