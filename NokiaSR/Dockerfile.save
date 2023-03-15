@@ -1,0 +1,4 @@
+# Se utiliza la imagen de Ubuntu como base
+FROM ghcr.io/nokia/srlinux
+
+
