@@ -1,0 +1,3 @@
+# Comandos para entrar al router:
+kubectl -n 7b2950d8-f92b-4041-9a55-8d1837ad7b0a exec -it pod/helmchartrepo-cpechart-0093572925-5b99998878-t2sqv -c nokiasr -- sudo sr_cli
+A:# enter candidate
