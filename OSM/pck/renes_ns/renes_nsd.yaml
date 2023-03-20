@@ -16,7 +16,7 @@ nsd:
   - id: renes
     name: renes
     designer: educaredes
-    description: Residential Network Service NS consisting of 2 KNFs
+    description: Residential Network Service NS consisting of 3 KNFs
     version: '1.0'
     df:
     - id: default-df
@@ -35,6 +35,13 @@ nsd:
                 constituent-cpd-id: mgmt-ext
             virtual-link-profile-id: mgmtnet
         vnfd-id: cpeknf
+      - id: router  
+        virtual-link-connectivity:
+          - constituent-cpd-id:
+              - constituent-base-element-id: router
+                constituent-cpd-id: mgmt-ext
+            virtual-link-profile-id: mgmtnet
+        vnfd-id: routerknf
     version: '1.0'    
     virtual-link-desc:
       - id: mgmtnet
@@ -42,3 +49,4 @@ nsd:
     vnfd-id:
       - accessknf
       - cpeknf
+      - routerknf

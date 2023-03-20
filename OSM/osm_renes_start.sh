@@ -26,10 +26,13 @@ deployment_id() {
 echo "## 0. Obtener deployment ids de las vnfs"
 OSMACC=$(deployment_id $SINAME "access")
 OSMCPE=$(deployment_id $SINAME "cpe")
+OSMROUTER=$(deployment_id $SINAME "router")
 echo $OSMACC
 echo $OSMCPE
+echo $OSMROUTER
 
 export VACC="deploy/$OSMACC"
 export VCPE="deploy/$OSMCPE"
+export VROUTER="deploy/$OSMROUTER"
 
 ./renes_start.sh

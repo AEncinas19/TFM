@@ -15,6 +15,7 @@ set -u # to verify variables are defined
 : $OSMNS
 : $VACC
 : $VCPE
+: $VROUTER
 : $HOMETUNIP
 : $VNFTUNIP
 : $VCPEPUBIP
@@ -34,7 +35,8 @@ if [[ ! $VCPE =~ "helmchartrepo-cpechart"  ]]; then
 fi
 
 ACC_EXEC="$KUBECTL exec -n $OSMNS $VACC --"
-CPE_EXEC="$KUBECTL exec -n $OSMNS $VCPE --"
+CPE_EXEC="$KUBECTL exec -n $OSMNS $VCPE -c cpechart --"
+ROUTER_EXEC="$KUBECTL exec -n $OSMNS $VROUTER --"
 
 # Router por defecto en red residencial
 VCPEPRIVIP="192.168.255.1"
@@ -49,6 +51,9 @@ echo "IPACCESS = $IPACCESS"
 
 IPCPE=`$CPE_EXEC hostname -I | awk '{print $1}'`
 echo "IPCPE = $IPCPE"
+
+IPROUTER=`$ROUTER_EXEC hostname -I | awk '{print $1}'`
+echo "IPROUTER = $IPROUTER"
 
 ## 2. Iniciar el Servicio OpenVirtualSwitch en cada VNF:
 echo "## 2. Iniciar el Servicio OpenVirtualSwitch en cada VNF"
@@ -74,6 +79,7 @@ $ACC_EXEC ifconfig vxlanint up
 $ACC_EXEC ovs-vsctl set-controller brint tcp:127.0.0.1:6633
 $ACC_EXEC ovs-vsctl set-manager ptcp:6632
 $ACC_EXEC ip route add $IPCPE/32 via $K8SGW
+$ACC_EXEC ip route add $IPROUTER/32 via $K8SGW
 
 ## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas
 echo "## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas"
@@ -83,6 +89,7 @@ $CPE_EXEC ovs-vsctl add-port brint vxlanint -- set interface vxlanint type=vxlan
 $CPE_EXEC ifconfig brint mtu 1400
 $CPE_EXEC ifconfig net1 $VCPEPUBIP/24
 $CPE_EXEC ip route add $IPACCESS/32 via $K8SGW
+$ACC_EXEC ip route add $IPROUTER/32 via $K8SGW
 $CPE_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 ## Para poder monitorizar con Prometheus es necesario habilitar esta ruta para que pueda acceder al CPE
@@ -97,6 +104,9 @@ sleep 10
 ## 6. En VNF:cpe activar NAT para dar salida a Internet
 echo "## 6. En VNF:cpe activar NAT para dar salida a Internet"
 $CPE_EXEC /usr/bin/vnx_config_nat brint net1
+
+## 7. VNF: router
+
 
 ## 8. Configurar colas
 $ACC_EXEC curl -X PUT -d '"tcp:127.0.0.1:6632"' http://127.0.0.1:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
