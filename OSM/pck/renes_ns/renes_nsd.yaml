@@ -28,13 +28,6 @@ nsd:
                 constituent-cpd-id: mgmt-ext
             virtual-link-profile-id: mgmtnet
         vnfd-id: accessknf
-      - id: cpe
-        virtual-link-connectivity:
-          - constituent-cpd-id:
-              - constituent-base-element-id: cpe
-                constituent-cpd-id: mgmt-ext
-            virtual-link-profile-id: mgmtnet
-        vnfd-id: cpeknf
       - id: router  
         virtual-link-connectivity:
           - constituent-cpd-id:
@@ -48,5 +41,4 @@ nsd:
         mgmt-network: true
     vnfd-id:
       - accessknf
-      - cpeknf
       - routerknf
