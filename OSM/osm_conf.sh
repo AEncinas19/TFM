@@ -11,7 +11,6 @@ echo "export OSMNS='$OSMNS'" >> ~/.bashrc
 cd TFM/OSM
 osm repo-add  --type helm-chart --description "Repo para la practica final de RDSV" helmchartrepo https://aencinas19.github.io/repo-rdsv
 osm vnfd-create pck/accessknf_vnfd.tar.gz
-osm vnfd-create pck/cpeknf_vnfd.tar.gz
 osm vnfd-create pck/routerknf_vnfd.tar.gz
 osm nsd-create pck/renes_ns.tar.gz
 
