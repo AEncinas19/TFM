@@ -5,8 +5,11 @@ metadata:
   annotations:
     k8s.v1.cni.cncf.io/resourceName: ovs-cni.network.kubevirt.io/podnet
 spec:
-  config: {
+  config: '{
       "cniVersion": "0.4.0",
       "type": "ovs",
       "bridge": "PodNet"
-    }
+      "ipam": {
+        "type": "static"
+      }
+    }'
