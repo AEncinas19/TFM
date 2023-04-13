@@ -65,7 +65,7 @@ $ACC_EXEC ifconfig vxlanacc up
 $ACC_EXEC ifconfig vxlanint up
 $ACC_EXEC ovs-vsctl set-controller brint tcp:127.0.0.1:6633
 $ACC_EXEC ovs-vsctl set-manager ptcp:6632
-$ACC_EXEC ip route add $IPROUTER/32 via $K8SGW
+$ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
 
 ## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas
 #echo "## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas"
