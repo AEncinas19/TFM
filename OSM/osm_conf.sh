@@ -64,7 +64,7 @@ echo "Setting up service instances"
 
 cd ../AristacEOS
 echo "Setting Mgmt0's IP interface"
-export pod_name=$(kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}')
+export pod_name=$(kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r')
 export IP_address=$(kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}')
 echo $(eval echo \$IP_address)
 source ./config-mgmt-iface-arista.sh $pod_name $IP_address $OSMNS
