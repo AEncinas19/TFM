@@ -59,7 +59,7 @@ $ACC_EXEC ovs-vsctl set-fail-mode brint secure
 $ACC_EXEC ovs-vsctl set bridge brint other-config:datapath-id=0000000000000001
 $ACC_EXEC ifconfig net1 $VNFTUNIP/24
 $ACC_EXEC ip link add vxlanacc type vxlan id 0 remote $HOMETUNIP dstport 4789 dev net1
-$ACC_EXEC ip link add vxlanint type vxlan id 3030 remote $VCPEPRIVIP dstport 4789 dev eth1
+$ACC_EXEC ip link add vxlanint type vxlan id 1 remote $VCPEPRIVIP dstport 4789 dev eth1
 $ACC_EXEC ovs-vsctl add-port brint vxlanacc
 $ACC_EXEC ovs-vsctl add-port brint vxlanint
 $ACC_EXEC ifconfig vxlanacc up
@@ -70,19 +70,6 @@ $ACC_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $ACC_EXEC ip route add 0.0.0.0/0 via 10.0.0.2
 $ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
 
-## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas
-#echo "## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas"
-#$CPE_EXEC ovs-vsctl add-br brint
-#$CPE_EXEC ifconfig brint $VCPEPRIVIP/24
-#$CPE_EXEC ovs-vsctl add-port brint vxlanint -- set interface vxlanint type=vxlan options:remote_ip=$IPACCESS options:key=1 options:dst_port=8742
-#$CPE_EXEC ifconfig brint mtu 1400
-#$CPE_EXEC ifconfig net1 $VCPEPUBIP/24
-#$CPE_EXEC ip route add $IPACCESS/32 via $K8SGW
-#$ACC_EXEC ip route add $IPROUTER/32 via $K8SGW
-#$CPE_EXEC ip route del 0.0.0.0/0 via $K8SGW
-#$CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
-## Para poder monitorizar con Prometheus es necesario habilitar esta ruta para que pueda acceder al CPE
-#$CPE_EXEC ip route add 10.1.77.0/24 via $K8SGW
 
 ## 5. En VNF:cpe iniciar Servidor DHCP
 #echo "## 5. En VNF:cpe iniciar Servidor DHCP"
