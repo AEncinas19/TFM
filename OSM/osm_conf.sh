@@ -14,6 +14,9 @@ osm vnfd-create pck/accessknf_vnfd.tar.gz
 osm vnfd-create pck/routerknf_vnfd.tar.gz
 osm nsd-create pck/renes_ns.tar.gz
 
+echo "Add NetowrkAttatchment Definition for PodNet"
+kubectl -n $OSMNS create -f NetAttDefnetPod.yaml
+
 echo "Creating service instances"
 echo "Creating renes1"
 
@@ -28,7 +31,6 @@ while [ $status1 -ne 0 ]
 do
     # Wait for 10 seconds before checking if the command succeeded
     echo "Waiting 10 second till instantiating"
-    sleep 10
 
     # Check if the command succeeded
         # Get the status of the ns-create
@@ -48,7 +50,7 @@ do
 	else
 	    #delete the first process
 	    osm ns-delete --force $(eval echo \$NSID1)
-	    sleep 10
+	    sleep 5
 	    echo "Deleting"
 	    # Get the second process
 	    export NSID1=$(osm ns-create --ns_name renes1 --nsd_name renes --vim_account dummy_vim)
