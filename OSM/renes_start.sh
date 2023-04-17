@@ -59,7 +59,7 @@ $ACC_EXEC ovs-vsctl set-fail-mode brint secure
 $ACC_EXEC ovs-vsctl set bridge brint other-config:datapath-id=0000000000000001
 $ACC_EXEC ifconfig net1 $VNFTUNIP/24
 $ACC_EXEC ip link add vxlanacc type vxlan id 0 remote $HOMETUNIP dstport 4789 dev net1
-$ACC_EXEC ip link add vxlanint type vxlan id 3030 remote $VCPEPRIV dstport 4789 dev eth1
+$ACC_EXEC ip link add vxlanint type vxlan id 3030 remote $VCPEPRIVIP dstport 4789 dev eth1
 $ACC_EXEC ovs-vsctl add-port brint vxlanacc
 $ACC_EXEC ovs-vsctl add-port brint vxlanint
 $ACC_EXEC ifconfig vxlanacc up
