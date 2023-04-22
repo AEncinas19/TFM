@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gnmi-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gnmi-client
+  template:
+    metadata:
+      labels:
+        app: gnmi-client
+    spec:
+      containers:
+        - name: gnmi-client
+          image: ubuntu:20.04
+          command: ["sh", "-c", "tail -f /dev/null"]
