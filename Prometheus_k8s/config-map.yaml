@@ -35,12 +35,12 @@ data:
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.1.77.32:9100"
+              - "10.1.77.40:9100"
       - job_name: 'knf_cpe'
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.1.77.31:9100"  
+              - "10.1.77.41:8080"  
 
       - job_name: 'kubernetes-pods'
 

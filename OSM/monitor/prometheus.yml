@@ -30,7 +30,11 @@ scrape_configs:
     scrape_interval: 5s
     file_sd_configs:
       - files: ['knf-target_access.yml']
-  - job_name: 'knf_cpe'
+  - job_name: 'knf_router'
     scrape_interval: 5s
     file_sd_configs:
-      - files: ['knf-target_cpe.yml']
+      - files: ['knf-target_router.yml']
+  - job_name: 'router'
+    scrape_interval: 2s
+    file_sd_configs:
+      - files: ['target_router.yml']
