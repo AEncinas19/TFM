@@ -65,6 +65,7 @@ echo "Setting up service instances"
 ./osm_renes1.sh
 
 cd ../AristacEOS
+sleep 10
 echo "Setting Mgmt0's IP interface"
 export pod_name=$(kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r')
 export IP_address=$(kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}')
