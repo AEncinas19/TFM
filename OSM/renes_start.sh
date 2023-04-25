@@ -73,6 +73,7 @@ $ACC_EXEC ip route add 0.0.0.0/0 via 10.0.0.2
 $ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
 
 ## 4. En VNF:router activar NAT para dar salida a Internet
+sleep 20
 $ROUTER_EXEC /mnt/flash/vnx_config_nat vlan1 eth2
 
 ## 5. Configurar colas
