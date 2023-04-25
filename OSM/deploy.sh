@@ -9,7 +9,7 @@ sudo systemctl restart docker
 sleep 15
 
 cd img/vnf-router
-sudo docker build -t ceos:4.29.0.2F
+sudo docker build -t ceos:4.29.0.2F .
 sudo docker tag ceos:4.29.0.2F 192.168.56.11:32000/ceos:latest
 sudo docker push 192.168.56.11:32000/ceos:latest
 
