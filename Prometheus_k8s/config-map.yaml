@@ -35,37 +35,15 @@ data:
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.1.77.40:9100"
+              - "10.1.77.54:9100"
       - job_name: 'knf_cpe'
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.1.77.41:8080"  
+              - "10.1.77.57:8080"  
       - job_name: 'kubernetes-pods'
         kubernetes_sd_configs:
         - role: pod
           namespaces:
             names:
               - 7b2950d8-f92b-4041-9a55-8d1837ad7b0a
-        relabel_configs:
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-          action: keep
-          regex: true
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-          action: replace
-          target_label: __metrics_path__
-          regex: (.+)
-        - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-          action: replace
-          regex: ([^:]+)(?::\d+)?;(\d+)
-          replacement: $1:$2
-          target_label: __address__
-        - action: labelmap
-          regex: __meta_kubernetes_pod_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          action: replace
-          target_label: kubernetes_namespace
-        - source_labels: [__meta_kubernetes_pod_name]
-          action: replace
-          target_label: kubernetes_pod_name
-
