@@ -41,7 +41,9 @@ echo "## 1. Obtener IPs de las VNFs"
 IPACCESS=`$ACC_EXEC hostname -I | awk '{print $1}'`
 echo "IPACCESS = $IPACCESS"
 
-IPROUTER=`$ROUTER_EXEC hostname -I | awk '{print $1}'`
+pod_name=`kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r'`
+
+IPROUTER=`kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}'`
 echo "IPROUTER = $IPROUTER"
 
 ## 2. Iniciar el Servicio OpenVirtualSwitch en cada VNF:
@@ -70,21 +72,10 @@ $ACC_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $ACC_EXEC ip route add 0.0.0.0/0 via 10.0.0.2
 $ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
 
+## 4. En VNF:router activar NAT para dar salida a Internet
+$ROUTER_EXEC /mnt/flash/vnx_config_nat vlan1 eth2
 
-## 5. En VNF:cpe iniciar Servidor DHCP
-#echo "## 5. En VNF:cpe iniciar Servidor DHCP"
-#$CPE_EXEC sed -i 's/homeint/brint/' /etc/default/isc-dhcp-server
-#$CPE_EXEC service isc-dhcp-server restart
-#sleep 10
-
-## 6. En VNF:cpe activar NAT para dar salida a Internet
-#echo "## 6. En VNF:cpe activar NAT para dar salida a Internet"
-#$CPE_EXEC /usr/bin/vnx_config_nat brint net1
-
-## 7. VNF: router
-
-
-## 8. Configurar colas
+## 5. Configurar colas
 $ACC_EXEC curl -X PUT -d '"tcp:127.0.0.1:6632"' http://127.0.0.1:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
 $ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_rate": "12000000", "queues": [{"min_rate": "8000000"}, {"max_rate": "4000000"}]}' http://127.0.0.1:8080/qos/queue/0000000000000001 
 $ACC_EXEC curl -X POST -d '{"match": {"dl_dst": "'$MACHX2'", "dl_type": "IPv4"}, "actions":{"queue": "1"}}' http://127.0.0.1:8080/qos/rules/0000000000000001
