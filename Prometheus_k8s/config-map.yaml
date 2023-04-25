@@ -41,11 +41,12 @@ data:
         static_configs:
           - targets:
               - "10.1.77.41:8080"  
-
       - job_name: 'kubernetes-pods'
-
         kubernetes_sd_configs:
         - role: pod
+          namespaces:
+            names:
+              - 7b2950d8-f92b-4041-9a55-8d1837ad7b0a
         relabel_configs:
         - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
           action: keep
@@ -67,8 +68,4 @@ data:
         - source_labels: [__meta_kubernetes_pod_name]
           action: replace
           target_label: kubernetes_pod_name
-      
-      - job_name: 'kube-state-metrics'
-        static_configs:
-          - targets: ['kube-state-metrics.kube-system.svc.cluster.local:8080']
 
