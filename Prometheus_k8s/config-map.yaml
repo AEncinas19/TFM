@@ -19,10 +19,10 @@ data:
   #        summary: High Memory Usage
   kernel_rules.yml: |-
     groups:
-     - name: test
-       rules:
-        - record: kernelprocrsswithcommand
-          expr: kernelprocrss * on(pid) group_right kernelproc
+      - name: test
+        rules:
+         - record: kernelprocrsswithcommand
+           expr: kernelprocrss * on(pid) group_right kernelproc
   prometheus.yml: |-
     global:
       scrape_interval: 5s
