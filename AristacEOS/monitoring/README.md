@@ -12,4 +12,4 @@ gnmic -a <IP_routerpod>:6030 -u admin -p admin --insecure --gzip get --path 'com
 gnmic -a 10.1.77.57:6030 -u admin -p admin --insecure --gzip subscribe --path 'interfaces/interface[name=Ethernet1]/state/'
 
 ## Subscribir métricas en Prometheus:
-Añadir ocprometheys y ocprometheus.yml en /mnt/flash
+Añadir ocprometheus y ocprometheus.yml en /mnt/flash
