@@ -6,23 +6,29 @@ metadata:
     name: prometheus-server-conf
   namespace: monitoring
 data:
-  prometheus.rules: |-
+  #prometheus.rules: |-
+  #  groups:
+  #  - name: devopscube demo alert
+  #    rules:
+  #    - alert: High Pod Memory
+  #      expr: sum(container_memory_usage_bytes) > 1
+  #      for: 1m
+  #      labels:
+  #        severity: slack
+  #      annotations:
+  #        summary: High Memory Usage
+  kernel_rules.yml: |-
     groups:
-    - name: devopscube demo alert
-      rules:
-      - alert: High Pod Memory
-        expr: sum(container_memory_usage_bytes) > 1
-        for: 1m
-        labels:
-          severity: slack
-        annotations:
-          summary: High Memory Usage
+     - name: test
+       rules:
+        - record: kernelprocrsswithcommand
+          expr: kernelprocrss * on(pid) group_right kernelproc
   prometheus.yml: |-
     global:
       scrape_interval: 5s
       evaluation_interval: 5s
     rule_files:
-      - /etc/prometheus/prometheus.rules
+      - "kernel_rules.yaml"
     alerting:
       alertmanagers:
       - scheme: http
