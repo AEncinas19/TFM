@@ -8,3 +8,6 @@ bash -c "$(curl -sL https://get-gnmic.openconfig.net)"
 ## Obtener métricas:
 gnmic -a <IP_routerpod>:6030 -u admin -p admin --insecure --gzip get --path 'components/component/cpu'
 
+## Subscribirse
+gnmic -a 10.1.77.57:6030 -u admin -p admin --insecure --gzip subscribe --path 'interfaces/interface[name=Ethernet1]/state/'
+
