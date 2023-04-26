@@ -1,0 +1,20 @@
+#Tested on 4.22+
+
+
+# Subscriptions to OpenConfig paths.
+subscriptions:
+        - /system/processes
+        - /interfaces/interface
+        - eos_native:/Kernel/proc
+# Prometheus metrics configuration.
+# If you use named capture groups in the path, they will be extracted into labels with the same name.
+# All fields are mandatory.
+metrics:
+        - name: intfCounter
+          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/
+        - name: cputotal
+          path: /Kernel/proc/cpu/utilization/total/(?P<usageType>(?:idle|nice|system|user|util))
+          help: CPUtotal
+        - name: memorystatus
+          path: /Kernel/proc/meminfo/(?P<usageType>(?:memAvailable|memFree|memTotal|buffers|cached))
+          help: memory info
