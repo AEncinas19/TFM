@@ -11,10 +11,16 @@ subscriptions:
 # All fields are mandatory.
 metrics:
         - name: intfCounter
-          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/
+          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/counters/(?P<countertype>.+)
+        - name: intfOperState
+          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/oper-status
+          valuelabel: operState
         - name: cputotal
           path: /Kernel/proc/cpu/utilization/total/(?P<usageType>(?:idle|nice|system|user|util))
           help: CPUtotal
         - name: memorystatus
           path: /Kernel/proc/meminfo/(?P<usageType>(?:memAvailable|memFree|memTotal|buffers|cached))
           help: memory info
+        - name: systeminfo
+          path: /Kernel/sysinfo
+          help: system info

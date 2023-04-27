@@ -29,6 +29,6 @@ spec:
       volumes:
         - name: grafana-storage
           emptyDir: {}
-        - name: grafana-datasources
+        - name: grafana-sources
           configMap:
               name: grafana-sources

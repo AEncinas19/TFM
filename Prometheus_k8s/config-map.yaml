@@ -19,16 +19,17 @@ data:
   #        summary: High Memory Usage
   kernel_rules.yml: |-
     groups:
-      - name: test
-        rules:
-         - record: kernelprocrsswithcommand
-           expr: kernelprocrss * on(pid) group_right kernelproc
+     - name: test
+       rules:
+        - record: kernelprocrsswithcommand
+          expr: kernelprocrss * on(pid) group_right kernelproc
+
   prometheus.yml: |-
     global:
       scrape_interval: 5s
       evaluation_interval: 5s
     rule_files:
-      - "kernel_rules.yaml"
+        - "kernel_rules.yml"
     alerting:
       alertmanagers:
       - scheme: http
@@ -46,7 +47,7 @@ data:
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.1.77.57:8080"  
+              - "10.1.77.59:8080"  
       - job_name: 'kubernetes-pods'
         kubernetes_sd_configs:
         - role: pod
