@@ -3,15 +3,15 @@
 microk8s enable registry
 
 sudo touch /etc/docker/daemon.json
-echo '{"insecure-registries": ["192.168.56.11:32000"]}' | sudo tee /etc/docker/daemon.json
+echo '{"insecure-registries": ["10.11.12.70:32000"]}' | sudo tee /etc/docker/daemon.json
 
 sudo systemctl restart docker
 sleep 15
 
 cd img/vnf-router
 sudo docker build -t router .
-sudo docker tag router 192.168.56.11:32000/ceos:latest
-sudo docker push 192.168.56.11:32000/ceos:latest
+sudo docker tag router 10.11.12.70:32000/ceos:latest
+sudo docker push 10.11.12.70:32000/ceos:latest
 
 sudo ovs-vsctl add-br PodNet
 sudo ifconfig PodNet up
