@@ -15,7 +15,7 @@ osm vnfd-create pck/routerknf_vnfd.tar.gz
 osm nsd-create pck/renes_ns.tar.gz
 
 echo "Add NetowrkAttatchment Definition for PodNet"
-kubectl -n $OSMNS create -f NetAttDefnetPod.yaml
+microk8s kubectl -n $OSMNS create -f NetAttDefnetPod.yaml
 
 echo "Creating service instances"
 echo "Creating renes1"
