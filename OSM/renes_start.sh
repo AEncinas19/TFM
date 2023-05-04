@@ -41,9 +41,9 @@ echo "## 1. Obtener IPs de las VNFs"
 IPACCESS=`$ACC_EXEC hostname -I | awk '{print $1}'`
 echo "IPACCESS = $IPACCESS"
 
-pod_name=`kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r'`
+pod_name=`microk8s kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r'`
 
-IPROUTER=`kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}'`
+IPROUTER=`microk8s kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}'`
 echo "IPROUTER = $IPROUTER"
 
 ## 2. Iniciar el Servicio OpenVirtualSwitch en cada VNF:
