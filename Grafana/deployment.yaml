@@ -1,3 +1,9 @@
+
+
+
+
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,7 +34,9 @@ spec:
             readOnly: false
       volumes:
         - name: grafana-storage
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: grafana-pvc
         - name: grafana-sources
           configMap:
               name: grafana-sources
+
