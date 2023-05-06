@@ -71,6 +71,7 @@ $ACC_EXEC ovs-vsctl set-manager ptcp:6632
 $ACC_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $ACC_EXEC ip route add 0.0.0.0/0 via 10.0.0.2
 $ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
+$ACC_EXEC ./node_exporter-1.5.0.linux-amd64/node_exporter &
 
 ## 4. En VNF:router activar NAT para dar salida a Internet
 sleep 20
