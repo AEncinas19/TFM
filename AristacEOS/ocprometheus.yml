@@ -6,13 +6,16 @@ subscriptions:
         - /system/processes
         - /interfaces/interface
         - eos_native:/Kernel/proc
-        - eos_native: /Kernel/sysinfo
+        - eos_native:/Kernel/sysinfo
 # Prometheus metrics configuration.
 # If you use named capture groups in the path, they will be extracted into labels with the same name.
 # All fields are mandatory.
 metrics:
-        - name: intf
-          path: /interfaces/interface
+        - name: intfCounter
+          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/statecounters/(?P<countertype>.+)
+        - name: intfOperState
+          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/oper-status
+          valuelabel: operState
         - name: cputotal
           path: /Kernel/proc/cpu/
           help: CPUtotal
@@ -24,4 +27,5 @@ metrics:
         - name: systeminfo
           path: /Kernel/sysinfo
           help: system info
+
           
