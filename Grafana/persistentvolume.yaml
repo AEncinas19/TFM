@@ -13,4 +13,3 @@ spec:
   claimRef:
     name: grafana-pvc
     namespace: monitoring
-

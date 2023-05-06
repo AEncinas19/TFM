@@ -5,17 +5,5 @@ metadata:
   namespace: monitoring
 data:
   prometheus.yaml: |-
-    {
-        "apiVersion": 1,
-        "datasources": [
-            {
-               "access":"proxy",
-                "editable": true,
-                "name": "prometheus",
-                "orgId": 1,
-                "type": "prometheus",
-                "url": "localhost:30000",
-                "version": 1
-            }
-        ]
-    }
+   {
+   }
