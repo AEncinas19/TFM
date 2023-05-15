@@ -42,15 +42,21 @@ data:
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.152.183.219:9100"
+              - "10.1.77.33:8080"
       - job_name: 'knf_cpe'
         scrape_interval: 5s
         static_configs:
           - targets:
-              - "10.152.183.60:8080"  
-  #    - job_name: 'kubernetes-pods'
-  #      kubernetes_sd_configs:
-  #      - role: pod
-  #        namespaces:
-  #          names:
-  #            - 7b2950d8-f92b-4041-9a55-8d1837ad7b0a
+              - "router.19d72910-a9a6-4786-8e91-77cb8dd15ffa.svc:8080"
+      - job_name: 'cadvisor'
+        scrape_interval: 5s
+        static_configs:
+          - targets:
+              - "10.1.77.35:8080"  
+      - job_name: 'knf'
+        kubernetes_sd_configs:
+        - role: service
+          namespaces:
+            names:
+              - 19d72910-a9a6-4786-8e91-77cb8dd15ffa
+              - monitoring

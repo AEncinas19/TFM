@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: prometheus
+  name: monitor
 rules:
 - apiGroups: [""]
   resources:
@@ -10,13 +10,15 @@ rules:
   - services
   - endpoints
   - pods
+  - namespaces 
+# Agrega el recurso de namespace para que pueda monitorear en el namespace "nuevo"
   verbs: ["get", "list", "watch"]
 - apiGroups:
   - extensions
   resources:
   - ingresses
   verbs: ["get", "list", "watch"]
-- nonResourceURLs: ["/metrics"]
+- nonResourceURLs: ["/metrics", "metrics/cadvisor"]
   verbs: ["get"]
 
 ---
@@ -24,29 +26,26 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: prometheus
+  name: monitor
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus
+  name: monitor
 subjects:
 - kind: ServiceAccount
   name: default
   namespace: monitoring
-
+# Agrega otro objeto de vinculación de roles de clúster para vincular el rol a otro namespace
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: prometheus-namespace
-  namespace: 7b2950d8-f92b-4041-9a55-8d1837ad7b0a
+  name: monitor-nuevo
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus
+  name: monitor
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: monitoring
-
+  namespace: 19d72910-a9a6-4786-8e91-77cb8dd15ffa

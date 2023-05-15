@@ -29,7 +29,7 @@ spec:
       volumes:
         - name: grafana-storage
           persistentVolumeClaim:
-            claimName: grafana-pvc
+            claimName: grafana-pvolc
         - name: grafana-sources
           configMap:
               name: grafana-sources
