@@ -1,0 +1,32 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+    route:
+      receiver: webhook_receiver
+      group_by: [alertname, job]
+      group_wait: 10s
+      repeat_interval: 5m
+      routes:
+        - receiver: webhook_receiver
+          match:
+            severity: critical
+          continue: true
+        - receiver: telegram_receiver
+          match:
+            severity: critical 
+ 
+    receivers:
+    - name: webhook_receiver
+      webhook_configs:
+        - url: 'https://webhook.site/90befe7e-2a54-4d9a-8a0c-12258dafbb71' 
+    - name: telegram_receiver
+      telegram_configs:
+      - api_url: 'https://api.telegram.org'
+        bot_token: '6020568377:AAFDU-Vrci1KaXOc0BYLfIyMLI8lSOueE3c'
+        chat_id: -1001756919693
+        

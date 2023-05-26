@@ -1,0 +1,21 @@
+apiVersion: flinkoperator.k8s.io/v1beta1
+kind: FlinkCluster
+metadata:
+  name: flinkjob-trafficrate-eth2
+spec:
+  flinkVersion: "1.14"
+  image:
+    name: {{ .Values.repository }} 
+  jobManager:
+    ports:
+      ui: 8081
+  taskManager:
+    replicas: 1
+  job:
+    jarFile: /opt/flink/usrlib/traffic-rate-1.0.jar
+    className: upm.dit.giros.TrafficRate
+    args: [{{ .Values.ethernet2.kafka }}, {{ .Values.ethernet2.topicin }}, {{ .Values.ethernet2.topicout }}, "5", {{ .Values.ethernet2.interface }}]
+    parallelism: 1
+    restartPolicy: Never
+  flinkProperties:
+    taskmanager.numberOfTaskSlots: "1"

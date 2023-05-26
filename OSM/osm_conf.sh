@@ -67,7 +67,7 @@ echo "Setting up service instances"
 cd ../AristacEOS
 sleep 10
 echo "Setting Mgmt0's IP interface"
-export pod_name=$(microk8s kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r')
+export pod_name=$(microk8s kubectl -n $OSMNS get all | grep pod/router | tail -n 1 | awk '{print $1}' | tr -d '\r')
 export IP_address=$(microk8s kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}')
 echo $(eval echo \$IP_address)
 source ./config-mgmt-iface-arista.sh $pod_name $IP_address $OSMNS

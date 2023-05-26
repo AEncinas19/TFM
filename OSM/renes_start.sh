@@ -21,12 +21,6 @@ set -u # to verify variables are defined
 : $VCPEGW
 : $MACHX2
 
-if [[ ! $VACC =~ "helmchartrepo-accesschart"  ]]; then
-    echo ""       
-    echo "ERROR: incorrect <access_deployment_id>: $VACC"
-    exit 1
-fi
-
 ACC_EXEC="$KUBECTL exec -n $OSMNS $VACC --"
 ROUTER_EXEC="$KUBECTL exec -n $OSMNS $VROUTER --"
 
@@ -41,7 +35,7 @@ echo "## 1. Obtener IPs de las VNFs"
 IPACCESS=`$ACC_EXEC hostname -I | awk '{print $1}'`
 echo "IPACCESS = $IPACCESS"
 
-pod_name=`microk8s kubectl -n $OSMNS get all | grep pod/helmchartrepo-router | tail -n 1 | awk '{print $1}' | tr -d '\r'`
+pod_name=`microk8s kubectl -n $OSMNS get all | grep pod/router | tail -n 1 | awk '{print $1}' | tr -d '\r'`
 
 IPROUTER=`microk8s kubectl -n $OSMNS describe $pod_name | grep "IP: " | awk 'NR==2{print $2}'`
 echo "IPROUTER = $IPROUTER"

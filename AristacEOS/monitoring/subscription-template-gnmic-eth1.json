@@ -1,0 +1,31 @@
+{
+    "address": "router.19d72910-a9a6-4786-8e91-77cb8dd15ffa.svc:6030",
+    "username": "admin",
+    "password": "admin",
+    "insecure": true,
+    "log-file": "/tmp/gnmic-1.log",
+    "subscriptions": {
+        "sub-periodic": {
+            "paths": [
+                "/interfaces/interface[name=Ethernet1]/state/counters/in-octets"
+            ],
+            "stream-mode": "sample",
+            "sample-interval": "5s",
+            "encoding": "JSON",
+            "qos": 0
+        }
+    },
+    "outputs": {
+        "output": {
+            "type": "kafka",
+            "address": "kafka-service:9092",
+            "topic": "gnmic-telemetry-1",
+            "max-retry": 2,
+            "timeout": "5s",
+            "recovery-wait-time": "10s",
+            "format": "event",
+            "num-workers": 1,
+            "debug": false
+        }
+    }
+}
