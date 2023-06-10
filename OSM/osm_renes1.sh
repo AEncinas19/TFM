@@ -16,6 +16,7 @@ export VCPEPUBIP="10.100.1.1"
 # VCPEGW: the default gateway for the vcpe
 export VCPEGW="10.100.1.254"
 
+export MACHX1="02:fd:00:04:00:01"
 export MACHX2="02:fd:00:04:01:01"
 
 ./osm_renes_start.sh

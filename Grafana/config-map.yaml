@@ -6,4 +6,16 @@ metadata:
 data:
   prometheus.yaml: |-
    {
+        "apiVersion": 1,
+        "datasources": [
+            {
+               "access":"proxy",
+               "editable": true,
+               "name": "prometheus",
+               "orgId": 1,
+               "type": "prometheus",
+               "url": "http://prometheus-service:8080",
+               "version": 1
+            }
+        ]
    }

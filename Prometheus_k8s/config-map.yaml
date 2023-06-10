@@ -8,29 +8,46 @@ metadata:
 data:
   prometheus.rules: |-
     groups:
-    - name: traffic rate unexpected
+    - name: tfm rules
       rules:
-      - alert: High traffic rate
-        expr: traffic_rate{interface="Ethernet1"} > 300
-        for: 1m
+      - alert: High traffic rate in the network
+        expr: node_network_receive_packets_total{device="eth1", instance="accesspod.19d72910-a9a6-4786-8e91-77cb8dd15ffa.svc:9100"} > 15000000000
+        for: 5s
         labels:
           severity: critical
         annotations:
           summary: High Traffic Rate
-          description: "{{$labels.instance }} has a high traffic rate (current value: {{ $value }} octects/s)"
-  kernel_rules.yml: |-
-    groups:
-     - name: test
-       rules:
-        - record: kernelprocrsswithcommand
-          expr: kernelprocrss * on(pid) group_right kernelproc
-
+          description: "There is a high traffic rate in the network with current value: {{ $value }} octects/s)"
+      - alert: Low traffic rate in the network
+        expr: traffic_rate{interface="Ethernet1"} < 1000000
+        for: 10m
+        labels: 
+          severity: low
+        annotations:
+          summary: Low Traffic Rate
+          description: "There is low traffic rate in the network with current value: {{ $value }} octects/s)"
+      - alert: Router CPU is near the limit
+        expr: avg by(id) (rate(container_cpu_usage_seconds_total{id="/kubepods/besteffort/pod0e4e0519-fb0a-46f3-8583-23805c0e7e6b/ea9bcb253f7e7306ea5d0d45fc91098b94249789813e03fbab5a963f40f7f894"}[1m])) * 100 > 0.9
+        for: 5s
+        labels:
+          severity: critical
+        annotations:
+          summary: High CPU use in router
+          description: "There is a high CPU use in router with current value: {{ $value }}"
+      - alert: Router memory 
+        expr: container_memory_usage_bytes{id="/kubepods/besteffort/pod0e4e0519-fb0a-46f3-8583-23805c0e7e6b/ea9bcb253f7e7306ea5d0d45fc91098b94249789813e03fbab5a963f40f7f894"} > 2000000000
+        for: 10s
+        labels:
+          severity: critical 
+        annotations:
+          summary: High memory use in router
+          description: "Router memory is using too much resources: {{ $value }}"
+        
   prometheus.yml: |-
     global:
       scrape_interval: 5s
       evaluation_interval: 5s
     rule_files:
-        - "kernel_rules.yml"
         - "prometheus.rules"
     alerting:
       alertmanagers:

@@ -20,16 +20,15 @@ echo "Instanciando cliente gnmi"
 cd ../AristacEOS/monitoring
 docker build -t 10.11.12.70:32000/gnmic .
 docker push 10.11.12.70:32000/gnmic:latest
-microk8s kubectl create -f deployment.yaml
-microk8s kubectl create -f service.yaml
-source ./exec_templates.sh
+microk8s kubectl -n monitoring create -f deployment.yaml
+microk8s kubectl -n monitoring create -f service.yaml
+sleep 10
+source exec_templates.sh
 
 
 echo "Instanciando grafana"
 cd ../../Grafana
 microk8s kubectl create -f config-map.yaml
-microk8s kubectl create -f persistentvolume.yaml
-microk8s kubectl create -f pvc.yaml
 microk8s kubectl create -f deployment.yaml
 microk8s kubectl create -f service.yaml
 
@@ -51,7 +50,7 @@ cd flink-helm
 microk8s helm3 -n monitoring install flink-applications . --values ./values.yaml
 
 echo "Instanciando AlertManager"
-cd ../AlertManager
+cd ../../../AlertManager
 microk8s kubectl create -f configmap.yaml
 microk8s kubectl create -f deployment.yaml
 microk8s kubectl create -f service.yaml

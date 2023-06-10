@@ -26,11 +26,14 @@ spec:
           - mountPath: /etc/grafana/provisioning/datasources
             name: grafana-sources
             readOnly: false
+          - mountPath: /etc/grafana/provisioning/dashboards/dashboard.json
+            name: grafana-dashboard
       volumes:
         - name: grafana-storage
-          persistentVolumeClaim:
-            claimName: grafana-pvolc
+          emptyDir: {}
         - name: grafana-sources
           configMap:
               name: grafana-sources
-
+        - name: grafana-dashboard
+          hostPath:
+            path: /home/upm/TFM/Grafana/dashboard.json

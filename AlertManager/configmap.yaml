@@ -8,7 +8,7 @@ data:
     global:
     route:
       receiver: webhook_receiver
-      group_by: [alertname, job]
+      group_by: [alertname, interface]
       group_wait: 10s
       repeat_interval: 5m
       routes:

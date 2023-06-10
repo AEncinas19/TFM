@@ -38,6 +38,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zookeeper-deployment
+  namespace: monitoring
 spec:
   replicas: 1
   selector:

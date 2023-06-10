@@ -48,7 +48,6 @@ $ACC_EXEC service openvswitch-switch start
 echo "## 3. En VNF:access agregar un bridge y configurar IPs y rutas"
 echo "## 3.1 Inicializando Ryu"
 $ACC_EXEC ryu-manager ryu.app.rest_qos ryu.app.rest_conf_switch ./qos_simple_switch_13.py &
-$ACC_EXEC ovs-vsctl del-br brint
 $ACC_EXEC ovs-vsctl add-br brint
 $ACC_EXEC ovs-vsctl set bridge brint protocols=OpenFlow10,OpenFlow12,OpenFlow13
 $ACC_EXEC ovs-vsctl set-fail-mode brint secure
@@ -68,11 +67,12 @@ $ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
 $ACC_EXEC ./node_exporter-1.5.0.linux-amd64/node_exporter &
 
 ## 4. En VNF:router activar NAT para dar salida a Internet
-sleep 20
-$ROUTER_EXEC /mnt/flash/vnx_config_nat vlan1 eth2
+sleep 10
+$ROUTER_EXEC ./mnt/flash/vnx_config_nat vlan1 eth2
 
 ## 5. Configurar colas
 $ACC_EXEC curl -X PUT -d '"tcp:127.0.0.1:6632"' http://127.0.0.1:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
-$ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_rate": "12000000", "queues": [{"min_rate": "8000000"}, {"max_rate": "4000000"}]}' http://127.0.0.1:8080/qos/queue/0000000000000001 
+$ACC_EXEC curl -X PUT -d '"tcp:10.255.0.2:6632"' http://127.0.0.1:8080/v1.0/conf/switches/0000000000000002/ovsdb_addr
+$ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_rate": "16000000", "queues": [{"max_rate: "6000000"},{"max_rate": "10000000"}]}' http://127.0.0.1:8080/qos/queue/0000000000000001
 $ACC_EXEC curl -X POST -d '{"match": {"dl_dst": "'$MACHX2'", "dl_type": "IPv4"}, "actions":{"queue": "1"}}' http://127.0.0.1:8080/qos/rules/0000000000000001
-
+$ACC_EXEC curl -X POST -d '{"match": {"dl_dst": "'$MACHX1'", "dl_type": "IPv4"}, "actions":{"queue": "1"}}' http://127.0.0.1:8080/qos/rules/0000000000000001  
