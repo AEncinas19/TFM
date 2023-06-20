@@ -33,7 +33,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "fieldConfig": {
         "defaults": {
@@ -55,7 +55,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -90,12 +91,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
           "expr": "node_memory_MemTotal_bytes",
@@ -109,7 +110,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "fieldConfig": {
         "defaults": {
@@ -131,7 +132,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -164,12 +166,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
           "expr": "node_filesystem_size_bytes{device=\"/dev/mapper/ubuntu--vg-ubuntu--lv\", mountpoint=\"/etc/hosts\"}",
@@ -183,177 +185,40 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)"
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 65
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+        "type": "datasource",
+        "uid": "grafana"
       },
       "gridPos": {
-        "h": 6,
-        "w": 7,
+        "h": 20,
+        "w": 16,
         "x": 6,
         "y": 0
       },
-      "id": 7,
-      "links": [],
-      "maxDataPoints": 100,
+      "id": 41,
       "options": {
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 5,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": false,
+          "normal": false,
+          "pending": true
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "viewMode": "list"
       },
-      "pluginVersion": "9.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "100 - (node_filesystem_avail_bytes{device=\"/dev/mapper/ubuntu--vg-ubuntu--lv\", mountpoint=\"/etc/hosts\"} * 100) / node_filesystem_size_bytes{device=\"/dev/mapper/ubuntu--vg-ubuntu--lv\"}",
-          "interval": "10s",
-          "intervalFactor": 1,
-          "legendFormat": "Disco disponible",
-          "metric": "",
-          "range": true,
-          "refId": "A",
-          "step": 10
-        }
-      ],
-      "title": "Filesystem usage",
-      "type": "gauge"
+      "title": "Alerts",
+      "type": "alertlist"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#d44a3a"
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0
-              },
-              {
-                "color": "#299c46",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 13,
-        "y": 0
-      },
-      "id": 31,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "ALERTS_FOR_STATE",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Running Containers",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "fieldConfig": {
         "defaults": {
@@ -377,7 +242,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -414,12 +280,12 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
           "expr": "(sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes) ) / sum(node_memory_MemTotal_bytes) * 100",
@@ -437,7 +303,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "fieldConfig": {
         "defaults": {
@@ -462,7 +328,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -499,15 +366,15 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "100 - (avg(irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+          "expr": "100 - (avg by (mode) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "format": "time_series",
           "interval": "1m",
           "intervalFactor": 1,
@@ -521,16 +388,103 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 65
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 0,
+        "y": 14
+      },
+      "id": 7,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "100 - (node_filesystem_avail_bytes{device=\"/dev/mapper/ubuntu--vg-ubuntu--lv\", mountpoint=\"/etc/hosts\"} * 100) / node_filesystem_size_bytes{device=\"/dev/mapper/ubuntu--vg-ubuntu--lv\"}",
+          "interval": "10s",
+          "intervalFactor": 1,
+          "legendFormat": "Disco disponible",
+          "metric": "",
+          "range": true,
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "Filesystem usage",
+      "type": "gauge"
+    },
+    {
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 20
       },
       "id": 19,
       "panels": [],
@@ -538,7 +492,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "refId": "A"
         }
@@ -553,7 +507,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "decimals": 3,
       "editable": true,
@@ -571,7 +525,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 15
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 3,
@@ -597,7 +551,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -609,10 +563,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+            "uid": "P1809F7CD0C75ACF3"
           },
-          "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod512d6426-663d-4015-a4df-a4cc7f395dd9/003cb5215bd9ced8d1ddaf8873c8070df57a9b722e08f81a0de3565788dec0d8\"}[1m])) by (id)",
+          "editorMode": "builder",
+          "expr": "avg by(id) (rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod70e18408-a457-422f-8d0b-bcb124a73240/778d8f6332c65a2e0bbfac1bda9134d1938f8fdef798c93d084e8f3f485a1094\"}[1m]))",
           "hide": false,
           "legendFormat": "Accesspod CPU",
           "range": true,
@@ -621,10 +575,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+            "uid": "P1809F7CD0C75ACF3"
           },
-          "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod959cddcd-4b03-40d9-9202-6e09a7784788/edaa6c7efa7105bd7a5990ad414167779fdbbde740d5bc7591f375f7854df2d7\"}[1m])) by (id)",
+          "editorMode": "builder",
+          "expr": "avg by(id) (rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod15c42706-2fcd-433c-af92-4032e394f5bd/2f8e4dc183fabd1895c5878b60f3e7c0a41fae0eb11fb845b2fde9546d8a29ba\"}[1m]))",
           "hide": false,
           "legendFormat": "Router CPU",
           "range": true,
@@ -671,7 +625,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "decimals": 2,
       "editable": true,
@@ -689,7 +643,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 15
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 2,
@@ -715,7 +669,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -727,10 +681,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
-          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod512d6426-663d-4015-a4df-a4cc7f395dd9/003cb5215bd9ced8d1ddaf8873c8070df57a9b722e08f81a0de3565788dec0d8\"}",
+          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod70e18408-a457-422f-8d0b-bcb124a73240/778d8f6332c65a2e0bbfac1bda9134d1938f8fdef798c93d084e8f3f485a1094\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -743,10 +697,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+            "uid": "P1809F7CD0C75ACF3"
           },
-          "editorMode": "builder",
-          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod959cddcd-4b03-40d9-9202-6e09a7784788/edaa6c7efa7105bd7a5990ad414167779fdbbde740d5bc7591f375f7854df2d7\"}",
+          "editorMode": "code",
+          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod15c42706-2fcd-433c-af92-4032e394f5bd/2f8e4dc183fabd1895c5878b60f3e7c0a41fae0eb11fb845b2fde9546d8a29ba\"}",
           "hide": false,
           "legendFormat": "Router Memory Usage",
           "range": true,
@@ -791,7 +745,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "decimals": 2,
       "editable": true,
@@ -809,7 +763,7 @@
         "h": 14,
         "w": 6,
         "x": 12,
-        "y": 15
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 40,
@@ -835,7 +789,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -847,7 +801,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
           "expr": "sort_desc(traffic_rate * 8)",
@@ -894,13 +848,98 @@
       }
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-red",
+                  "index": 0
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 18,
+        "y": 21
+      },
+      "id": 31,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "builder",
+          "expr": "up{instance=\"accesspod.19d72910-a9a6-4786-8e91-77cb8dd15ffa.svc:9100\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Access pod",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "builder",
+          "expr": "up{instance=\"router.19d72910-a9a6-4786-8e91-77cb8dd15ffa.svc:8080\"}",
+          "hide": false,
+          "legendFormat": "Router",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Running Containers",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "decimals": 2,
       "editable": true,
@@ -918,7 +957,7 @@
         "h": 14,
         "w": 6,
         "x": 0,
-        "y": 25
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 8,
@@ -944,7 +983,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -956,14 +995,62 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
-          "expr": "sort_desc(rate(node_network_receive_bytes_total[1m]) * 8)",
+          "expr": "rate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) * 8",
           "hide": false,
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "builder",
+          "expr": "rate(node_network_receive_bytes_total{device=\"eth1\"}[1m]) * 8",
+          "hide": false,
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "builder",
+          "expr": "rate(node_network_receive_bytes_total{device=\"net1\"}[1m]) * 8",
+          "hide": false,
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "builder",
+          "expr": "rate(node_network_receive_bytes_total{device=\"vxlanacc\"}[1m]) * 8",
+          "hide": false,
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "builder",
+          "expr": "rate(node_network_receive_bytes_total{device=\"vxlanint\"}[1m]) * 8",
+          "hide": false,
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -1006,7 +1093,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "f16be01e-6fb4-4e61-85de-bbd6a073a54f"
+        "uid": "P1809F7CD0C75ACF3"
       },
       "decimals": 2,
       "editable": true,
@@ -1024,7 +1111,7 @@
         "h": 14,
         "w": 6,
         "x": 6,
-        "y": 25
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 9,
@@ -1050,7 +1137,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.5.2",
+      "pluginVersion": "9.5.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1062,7 +1149,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
           "expr": "sort_desc(rate(intfCounter{countertype=\"in-octets\"}[1m]) * 8)",
@@ -1192,13 +1279,13 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [],
-          "value": []
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "P1809F7CD0C75ACF3"
         },
         "definition": "label_values(node_exporter_build_info{name=~'$name'},instance)",
         "hide": 0,
@@ -1223,16 +1310,12 @@
       {
         "current": {
           "selected": false,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "All"
-          ]
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "P1809F7CD0C75ACF3"
         },
         "definition": "label_values(node_exporter_build_info,env)",
         "hide": 0,
@@ -1256,13 +1339,13 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [],
-          "value": []
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "P1809F7CD0C75ACF3"
         },
         "definition": "label_values(node_exporter_build_info{env=~'$env'},name)",
         "hide": 0,
@@ -1318,6 +1401,6 @@
   "timezone": "browser",
   "title": "Prometheus Monitoring",
   "uid": "64nrElFmk",
-  "version": 5,
+  "version": 14,
   "weekStart": ""
 }

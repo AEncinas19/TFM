@@ -8,8 +8,8 @@ data:
     global:
     route:
       receiver: webhook_receiver
-      group_by: [alertname, interface]
-      group_wait: 10s
+      group_by: ['...']
+      group_wait: 1s
       repeat_interval: 5m
       routes:
         - receiver: webhook_receiver
@@ -19,7 +19,6 @@ data:
         - receiver: telegram_receiver
           match:
             severity: critical 
- 
     receivers:
     - name: webhook_receiver
       webhook_configs:

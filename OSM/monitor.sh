@@ -3,6 +3,16 @@ cd ../Prometheus_k8s
 echo "Creando namespace"
 microk8s kubectl create ns monitoring
 
+echo "Instanciando cadvisor"
+microk8s kubectl create -f cadvisor.yaml
+microk8s kubectl create -f cadvisor-service.yaml
+sleep 10
+
+cd ../OSM
+echo "Obteniendo ID de contenedores"
+./getcontainers.sh
+
+cd ../Prometheus_k8s
 echo "Instanciando prometheus"
 microk8s kubectl create -f config-map.yaml
 microk8s kubectl create -f prometheus-deployment.yaml
@@ -10,11 +20,6 @@ microk8s kubectl create -f prometheus-service.yaml
 
 echo "Instanciando pushgateway"
 microk8s kubectl create -f pushgw.yaml
-
-
-echo "Instanciando cadvisor"
-microk8s kubectl create -f cadvisor.yaml
-microk8s kubectl create -f cadvisor-service.yaml
 
 echo "Instanciando cliente gnmi"
 cd ../AristacEOS/monitoring
@@ -38,7 +43,7 @@ microk8s kubectl create -f deployment.yaml
 microk8s kubectl create -f service.yaml
 
 echo "Instanciando flink"
-cd FlinkOperatorEth1
+cd FlinkOperator
 # Instalar cert-manager para automatizar la gestión de certificados en el cluster Kubernetes:
 microk8s kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.yaml
 # Instalar Flink-Operator de spotify:

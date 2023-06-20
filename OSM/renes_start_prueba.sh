@@ -43,6 +43,7 @@ echo "IPROUTER = $IPROUTER"
 ## 2. Iniciar el Servicio OpenVirtualSwitch en cada VNF:
 echo "## 2. Iniciar el Servicio OpenVirtualSwitch en cada VNF"
 $ACC_EXEC service openvswitch-switch start
+$ROUTER_EXEC service openvswitch-switch start
 sleep 5
 ## 3. En VNF:access agregar un bridge y configurar IPs y rutas
 echo "## 3. En VNF:access agregar un bridge y configurar IPs y rutas"
@@ -55,7 +56,7 @@ $ACC_EXEC ovs-vsctl set-fail-mode brint secure
 $ACC_EXEC ovs-vsctl set bridge brint other-config:datapath-id=0000000000000001
 $ACC_EXEC ifconfig net1 $VNFTUNIP/24
 $ACC_EXEC ip link add vxlanacc type vxlan id 0 remote $HOMETUNIP dstport 4789 dev net1
-$ACC_EXEC ip link add vxlanint type vxlan id 1 remote 172.16.0.1 dstport 4789 dev eth1
+$ACC_EXEC ip link add vxlanint type vxlan id 1 remote 10.0.0.2 dstport 4789 dev eth1
 $ACC_EXEC ovs-vsctl add-port brint vxlanacc
 $ACC_EXEC ovs-vsctl add-port brint vxlanint
 $ACC_EXEC ifconfig vxlanacc up
@@ -65,14 +66,24 @@ $ACC_EXEC ovs-vsctl set-manager ptcp:6632
 $ACC_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $ACC_EXEC ip route add 0.0.0.0/0 via 10.0.0.2
 $ACC_EXEC ip route add 10.1.77.0/24 via $K8SGW
-$ACC_EXEC ./node_exporter-1.5.0.linux-amd64/node_exporter &
 
-## 4. En VNF:router activar NAT para dar salida a Internet
+## 4. En VNF:router configuración
+$ROUTER_EXEC ovs-vsctl add-br brint
+$ROUTER_EXEC ifconfig brint $VCPEPRIVIP/24
+$ROUTER_EXEC ovs-vsctl add-port brint vxlanint -- set interface vxlanint type=vxlan options:remote_ip=10.0.0.1 options:key=1 options:dst_port=4789
+$ROUTER_EXEC ifconfig brint mtu 1400
+$ROUTER_EXEC ifconfig eth2 $VCPEPUBIP/24
+$ROUTER_EXEC ip route add $IPACCESS/32 via $K8SGW
+$ROUTER_EXEC ip route del 0.0.0.0/0 via $K8SGW
+$ROUTER_EXEC ip route add 0.0.0.0/0 via $VCPEGW
+
+$ROUTER_EXEC sed -i 's/homeint/brint/' /etc/default/isc-dhcp-server
+$ROUTER_EXEC service isc-dhcp-server restart
 sleep 10
-$ROUTER_EXEC ./mnt/flash/vnx_config_nat vlan1 eth2
+$ROUTER_EXEC /usr/bin/vnx_config_nat brint eth2
 
 ## 5. Configurar colas
 $ACC_EXEC curl -X PUT -d '"tcp:127.0.0.1:6632"' http://127.0.0.1:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
-$ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_rate": "1000000000", "queues": [{"min_rate": "200000000"},{"min_rate": "600000000"}]}' http://127.0.0.1:8080/qos/queue/0000000000000001
+$ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_rate": "10000000", "queues": [{"min_rate": "2000000"},{"min_rate": "6000000"}]}' http://127.0.0.1:8080/qos/queue/0000000000000001
 $ACC_EXEC curl -X POST -d '{"match": {"dl_dst": "'$MACHX2'", "dl_type": "IPv4"}, "actions":{"queue": "1"}}' http://127.0.0.1:8080/qos/rules/0000000000000001
 $ACC_EXEC curl -X POST -d '{"match": {"dl_dst": "'$MACHX1'", "dl_type": "IPv4"}, "actions":{"queue": "1"}}' http://127.0.0.1:8080/qos/rules/0000000000000001  
