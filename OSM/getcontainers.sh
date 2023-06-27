@@ -15,12 +15,14 @@ echo "Access pod: $access_container"
 echo "Router: $router_container"
 
 
-cd ../Grafana
+cd ../Grafana/Dashboard
 access_container_prev_grafana=$(cat dashboard.json | grep -B 10 'Access' |  grep kubepods/besteffort/pod | awk -F '/' '{print "/"$4"/"$5}' | grep -oE '^([^"\]+)' | tail -n 1)
 router_container_prev_grafana=$(cat dashboard.json | grep -B 10 'Router' |  grep kubepods/besteffort/pod | awk -F '/' '{print "/"$4"/"$5}' | grep -oE '^([^"\]+)' | tail -n 1)
 sed -i "s|$access_container_prev_grafana|$access_container|g" dashboard.json
 sed -i "s|$router_container_prev_grafana|$router_container|g" dashboard.json
 
-cd ../Prometheus_k8s
+cd ../../Prometheus_k8s
+access_container_prev_prometheus=$(cat config-map.yaml | grep -B 10 'Access' |  grep kubepods/besteffort/pod | awk -F '/' '{print "/"$4"/"$5}' | grep -oE '^([^"\]+)' | tail -n 1)
 router_container_prev_prometheus=$(cat config-map.yaml | grep -B 10 'Router' |  grep kubepods/besteffort/pod | awk -F '/' '{print "/"$4"/"$5}' | grep -oE '^([^"\]+)' | tail -n 1)
+sed -i "s|$access_container_prev_prometheus|$access_container|g" config-map.yaml
 sed -i "s|$router_container_prev_prometheus|$router_container|g" config-map.yaml

@@ -20,14 +20,22 @@ spec:
         ports:
         - name: grafana
           containerPort: 3000
+        env:
+        - name: GF_SECURITY_ADMIN_USER
+          value: "admin"
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "admin"
+        securityContext:
+          runAsUser: 0
         volumeMounts:
           - mountPath: /var/lib/grafana
             name: grafana-storage
           - mountPath: /etc/grafana/provisioning/datasources
             name: grafana-sources
             readOnly: false
-          - mountPath: /etc/grafana/provisioning/dashboards/dashboard.json
+          - mountPath: /etc/grafana/provisioning/dashboards
             name: grafana-dashboard
+            readOnly: false
       volumes:
         - name: grafana-storage
           emptyDir: {}
@@ -36,4 +44,4 @@ spec:
               name: grafana-sources
         - name: grafana-dashboard
           hostPath:
-            path: /home/upm/TFM/Grafana/dashboard.json
+            path: /home/upm/TFM/Grafana/Dashboard/

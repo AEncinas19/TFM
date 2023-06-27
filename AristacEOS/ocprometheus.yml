@@ -13,7 +13,7 @@ metrics:
         - name: intfCounter
           path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/counters/(?P<countertype>.+)
         - name: intfOperState
-          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/oper-status
+          path: /interfaces/interface\[name=(?P<intf>[^\]]+)\]/state/admin-status
           valuelabel: operState
         - name: cputotal
           path: /Kernel/proc/cpu/utilization/total/(?P<usageType>(?:idle|nice|system|user|util))

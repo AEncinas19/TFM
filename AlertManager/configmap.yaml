@@ -22,7 +22,7 @@ data:
     receivers:
     - name: webhook_receiver
       webhook_configs:
-        - url: 'https://webhook.site/90befe7e-2a54-4d9a-8a0c-12258dafbb71' 
+        - url: 'https://webhook.site/80297d5c-2bc4-484f-8213-ea50f7b661b0' 
     - name: telegram_receiver
       telegram_configs:
       - api_url: 'https://api.telegram.org'
