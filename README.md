@@ -12,11 +12,10 @@ y volver a probar su funcionamiento.
 NOTA: si los pods no se ejecutan correctamente y aparecen algunos en estado “Evicted”, comprobar las siguientes situaciones:
 
   - El tamaño de disco asignado a la máquina virtual es de al menos 64 GB.
-  - Si al ejecutar en la terminal de la máquina virtual el comando $ df -h
-
-el espacio de disco asociado al espacio de almacenamiento principal (por ejemplo, /dev/mapper/Ubuntu--vg-ubuntu--lv) es menor de 60 GB, ampliarlo con el commando:
+  - Si al ejecutar en la terminal de la máquina virtual el comando ```$ df -h``` el espacio de disco asociado al espacio de almacenamiento principal (por ejemplo, /dev/mapper/Ubuntu--vg-ubuntu--lv) es menor de 60 GB, ampliarlo con el commando:
 ```$ sudo lvresize --resizefs --size +31GB /dev/mapper/ubuntu--vg-ubuntu--lv```
 y eliminar el namespace monitoring de Kubernetes con el comando siguiente:
-```$ kubectl delete ns monitoring```
-Una vez realizado esto, volver a ejecutar el script monitor.sh.
+```$ kubectl delete ns monitoring```.
+
+    Una vez realizado esto, volver a ejecutar el script monitor.sh.
 Una vez completados estos pasos, el sistema ya estará disponible.
