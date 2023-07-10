@@ -1,0 +1,18 @@
+vnfd:
+  description: KNF red de acceso
+  df:
+  - id: default-df
+  ext-cpd:
+  - id: mgmt-ext
+    k8s-cluster-net: mgmtnet
+  id: accessknf2
+  k8s-cluster:
+    nets:
+    - id: mgmtnet
+  kdu:
+  - name: repos
+    helm-chart: helmchartrepo/accesschart2
+  mgmt-cp: mgmt-ext
+  product-name: accessknf2
+  provider: GUI
+  version: '1.0'

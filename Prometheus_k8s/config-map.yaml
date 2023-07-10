@@ -43,7 +43,7 @@ data:
           summary: Low Traffic Rate
           description: "There is low traffic rate in the network with current value: {{ $value }} octects/s)"
       - alert: Router CPU is near the limit
-        expr: sum by(id) (rate(container_cpu_usage_seconds_total{id="/kubepods/besteffort/pod66928b37-5339-4ff3-86c9-5dcda32160e8/fb17d17ac1610bf1f5912619e4e1f4682e0793eaf26f45c82adc10ef6906607d"}[1m])) > 0.75
+        expr: sum by(id) (rate(container_cpu_usage_seconds_total{id="/kubepods/besteffort/podd7cf2430-24b5-47ff-9c54-381b58c74ae2/fd140f6985b174835fb518b0990c9b370755f7cf063badf32163167a97235f71"}[1m])) > 0.75
         for: 10s
         labels:
           severity: critical
@@ -51,7 +51,7 @@ data:
           summary: High CPU use in router
           description: "There is a high CPU use in router with current value: {{ $value }}"
       - alert: Access CPU is near the limit
-        expr: sum by(id) (rate(container_cpu_usage_seconds_total{id="/kubepods/besteffort/pod66928b37-5339-4ff3-86c9-5dcda32160e8/fb17d17ac1610bf1f5912619e4e1f4682e0793eaf26f45c82adc10ef6906607d"}[1m])) > 0.75
+        expr: sum by(id) (rate(container_cpu_usage_seconds_total{id="/kubepods/besteffort/podd7cf2430-24b5-47ff-9c54-381b58c74ae2/fd140f6985b174835fb518b0990c9b370755f7cf063badf32163167a97235f71"}[1m])) > 0.75
         for: 10s
         labels:
           severity: critical 

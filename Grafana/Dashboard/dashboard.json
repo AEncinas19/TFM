@@ -565,7 +565,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
-          "expr": "avg by(id) (rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod66928b37-5339-4ff3-86c9-5dcda32160e8/fb17d17ac1610bf1f5912619e4e1f4682e0793eaf26f45c82adc10ef6906607d\"}[1m]))",
+          "expr": "avg by(id) (rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/podd7cf2430-24b5-47ff-9c54-381b58c74ae2/fd140f6985b174835fb518b0990c9b370755f7cf063badf32163167a97235f71\"}[1m]))",
           "hide": false,
           "legendFormat": "Accesspod CPU",
           "range": true,
@@ -577,7 +577,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
-          "expr": "avg by(id) (rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod0d9ecec2-6013-4aa3-a5b3-f3296e66fa7c/a0492153cb0521edeed7ee4531a857c8ab8834e8e4b780e8a5d424a47ad93173\"}[1m]))",
+          "expr": "avg by(id) (rate(container_cpu_usage_seconds_total{id=\"/kubepods/besteffort/pod609d051c-6b2d-4d0e-86cb-44a4e54cc5aa/c60c604439480d31d5b5d01867040f742505128432737485365e5688bc061750\"}[1m]))",
           "hide": false,
           "legendFormat": "Router CPU",
           "range": true,
@@ -682,7 +682,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "builder",
-          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod66928b37-5339-4ff3-86c9-5dcda32160e8/fb17d17ac1610bf1f5912619e4e1f4682e0793eaf26f45c82adc10ef6906607d\"}",
+          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/podd7cf2430-24b5-47ff-9c54-381b58c74ae2/fd140f6985b174835fb518b0990c9b370755f7cf063badf32163167a97235f71\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -698,7 +698,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod0d9ecec2-6013-4aa3-a5b3-f3296e66fa7c/a0492153cb0521edeed7ee4531a857c8ab8834e8e4b780e8a5d424a47ad93173\"}",
+          "expr": "container_memory_usage_bytes{id=\"/kubepods/besteffort/pod609d051c-6b2d-4d0e-86cb-44a4e54cc5aa/c60c604439480d31d5b5d01867040f742505128432737485365e5688bc061750\"}",
           "hide": false,
           "legendFormat": "Router Memory Usage",
           "range": true,
