@@ -81,8 +81,7 @@ $ACC_EXEC curl -X POST -d '{"match": {"dl_src": "'$MACHX2'", "dl_type": "IPv4"},
 $ACC_EXEC curl -X POST -d '{"match": {"dl_src": "'$MACHX1'", "dl_type": "IPv4"}, "actions":{"queue": "1"}}' http://127.0.0.1:8080/qos/rules/0000000000000001
 
 ## 6. Configurar interfaz de gestión
-cd ../AristacEOS
 echo "Setting Mgmt0's IP interface"
 echo $(eval echo \$IPROUTER)
-source ./config-mgmt-iface-arista.sh $VROUTER $IPROUTER $OSMNS
+source ./config-mgmt-iface-arista.sh $VROUTER $IPROUTER $OSMNS $VCPEPUBIP
 
